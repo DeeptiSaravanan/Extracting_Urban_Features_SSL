@@ -71,6 +71,7 @@ python3 main_pretrain.py
 ```
 cd mae/mae_finetuning
 python3 main_finetune.py ft_freeze
+```
 
 ### MAE prediction:
 
