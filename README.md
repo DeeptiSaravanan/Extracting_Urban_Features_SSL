@@ -34,7 +34,6 @@ python3 -m torch.distributed.launch --nproc_per_node=1 main_swav.py \
 --queue_length 3840 \
 --checkpoint_freq 1 \
 --workers 2 \
-
 ```
 
 ### Deformable DETR pretraining:
@@ -44,7 +43,6 @@ cd def_detr/detr_pretrain/models/ops
 sh ./make.sh
 cd ../..
 GPUS_PER_NODE=2 ./tools/run_dist_launch.sh 2 ./configs/DETReg_top30_coco.sh --batch_size 8 --epochs 10 --num_workers 2
-
 ```
 
 ### Deformable DETR finetuning:
@@ -54,7 +52,6 @@ cd def_detr/detr_finetune/models/ops
 sh ./make.sh
 cd ../..
 GPUS_PER_NODE=2 ./tools/run_dist_launch.sh 2 ./configs/DETReg_fine_tune_full_coco.sh --batch_size 2 --epochs 50 --num_workers 2
-
 ```
 
 ### Deformable DETR prediction:
@@ -62,7 +59,6 @@ GPUS_PER_NODE=2 ./tools/run_dist_launch.sh 2 ./configs/DETReg_fine_tune_full_coc
 ```
 cd def_detr/detr_prediction
 python3 evaluate.py
-
 ```
 
 ### MAE pretraining:
@@ -70,3 +66,8 @@ python3 evaluate.py
 ### MAE finetuning:
 
 ### MAE prediction:
+
+```
+cd mae/mae_prediction
+python3 imageCheck.py
+```
