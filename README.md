@@ -62,8 +62,15 @@ python3 evaluate.py
 ```
 
 ### MAE pretraining:
+```
+cd mae/mae_pretraining
+python3 main_pretrain.py
+```
 
 ### MAE finetuning:
+```
+cd mae/mae_finetuning
+python3 main_finetune.py ft_freeze
 
 ### MAE prediction:
 
