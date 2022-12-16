@@ -12,13 +12,13 @@ git clone "https://github.com/NVIDIA/apex"
 cd apex
 git checkout 4a1aa97e31ca87514e17c3cd3bbc03f4204579d0
 
-python setup.py install --cuda_ext
-python -c 'import apex; from apex.parallel import LARC' # should run and return nothing
-python -c 'import apex; from apex.parallel import SyncBatchNorm; print(SyncBatchNorm.__module__)' # should run and return apex.parallel.optimized_sync_batchnorm
+python3 setup.py install --cuda_ext
+python3 -c 'import apex; from apex.parallel import LARC' # should run and return nothing
+python3 -c 'import apex; from apex.parallel import SyncBatchNorm; print(SyncBatchNorm.__module__)' # should run and return apex.parallel.optimized_sync_batchnorm
 
 cd ..
 
-python -m torch.distributed.launch --nproc_per_node=1 main_swav.py \
+python3 -m torch.distributed.launch --nproc_per_node=1 main_swav.py \
 --data_path /unlabeled \
 --epochs 15 \
 --base_lr 0.6 \
@@ -39,9 +39,31 @@ python -m torch.distributed.launch --nproc_per_node=1 main_swav.py \
 
 ### Deformable DETR pretraining:
 
+```
+cd def_detr/detr_pretrain/models/ops
+sh ./make.sh
+cd ../..
+GPUS_PER_NODE=2 ./tools/run_dist_launch.sh 2 ./configs/DETReg_top30_coco.sh --batch_size 8 --epochs 10 --num_workers 2
+
+```
+
 ### Deformable DETR finetuning:
 
+```
+cd def_detr/detr_finetune/models/ops
+sh ./make.sh
+cd ../..
+GPUS_PER_NODE=2 ./tools/run_dist_launch.sh 2 ./configs/DETReg_fine_tune_full_coco.sh --batch_size 2 --epochs 50 --num_workers 2
+
+```
+
 ### Deformable DETR prediction:
+
+```
+cd def_detr/detr_prediction
+python3 evaluate.py
+
+```
 
 ### MAE pretraining:
 
